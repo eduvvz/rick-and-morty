@@ -1,11 +1,13 @@
 import React from 'react';
+import { ApolloProvider } from '@apollo/client';
+import client from './services/apollo';
+import List from './components/List';
 
 const App: React.FC = () => {
   return (
-    <div>
-      <h1>Hello Word</h1>
-      <div />
-    </div>
+    <ApolloProvider client={client}>
+      <List />
+    </ApolloProvider>
   );
 };
 
