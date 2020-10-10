@@ -1,7 +1,8 @@
-import React from 'react';
-import { useQuery } from '@apollo/client';
+import React, { useEffect, useState } from 'react';
+import { useApolloClient } from '@apollo/client';
 import {
   Avatar,
+  Button,
   Divider,
   Grid,
   List,
@@ -15,21 +16,46 @@ import { ICharacterItemList } from '../../models/Characters';
 import { IIPaginateList } from '../../models/Requests';
 import { PAGINATE_CHARACTERS } from '../../services/querys/Characters';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   container: {
     minHeight: 'calc(100vh - 70px)',
   },
-});
+  containerMoreBtn: {
+    padding: theme.spacing(2, 0),
+  },
+}));
 
 const Characters: React.FC = () => {
   const classes = useStyles();
-  const { loading, data } = useQuery<IIPaginateList<ICharacterItemList>>(
-    PAGINATE_CHARACTERS()
-  );
+  const client = useApolloClient();
+  const [isLoading, setIsLoading] = useState(false);
+  const [nextPage, setNextPage] = useState<number | null>(1);
+  const [characters, setCharacters] = useState<ICharacterItemList[]>([]);
+
+  useEffect(() => {
+    getMoreItems();
+  }, []);
+
+  async function getMoreItems() {
+    setIsLoading(true);
+    const { data } = await client.query<IIPaginateList<ICharacterItemList>>({
+      query: PAGINATE_CHARACTERS(nextPage),
+    });
+
+    const newCharacters = data.characters.results || [];
+
+    setIsLoading(false);
+    setCharacters((prevState) => prevState.concat(newCharacters));
+    setNextPage(data.characters.info.next);
+  }
+
+  function onClickMoreBtn(): void {
+    getMoreItems();
+  }
 
   return (
     <>
-      {loading && (
+      {isLoading && (
         <Grid
           justify="center"
           alignItems="center"
@@ -40,7 +66,7 @@ const Characters: React.FC = () => {
         </Grid>
       )}
       <List>
-        {data?.characters.results.map((character) => (
+        {characters.map((character) => (
           <div key={character.id}>
             <ListItem>
               <ListItemAvatar>
@@ -55,6 +81,15 @@ const Characters: React.FC = () => {
           </div>
         ))}
       </List>
+      <Grid justify="center" className={classes.containerMoreBtn} container>
+        <Button
+          disabled={!nextPage || isLoading}
+          onClick={onClickMoreBtn}
+          size="large"
+        >
+          Buscar mais
+        </Button>
+      </Grid>
     </>
   );
 };

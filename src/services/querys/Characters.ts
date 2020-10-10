@@ -1,6 +1,6 @@
 import { DocumentNode, gql } from '@apollo/client';
 
-export const PAGINATE_CHARACTERS = (page = 1): DocumentNode => gql`
+export const PAGINATE_CHARACTERS = (page: number | null): DocumentNode => gql`
   query {
     characters(page: ${page}) {
       info {
