@@ -1,5 +1,9 @@
-export interface Character {
+export interface ICharacterBase {
   id: number;
   name: string;
-  image: URL;
+  image: string;
+}
+
+export interface ICharacterItemList extends ICharacterBase {
+  species: 'string';
 }

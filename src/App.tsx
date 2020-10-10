@@ -12,7 +12,7 @@ const App: React.FC = () => {
       <Router>
         <Menu />
         <Switch>
-          <Route path="/episodios">
+          <Route path="/episodes">
             <List />
           </Route>
           <Route path="/characters">

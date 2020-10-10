@@ -1,8 +1,8 @@
-import { Character } from './Characters';
+import { ICharacterBase } from './Characters';
 
 export interface IEpisode {
   id: number;
   name: string;
-  episoe: string;
-  characters: Character[];
+  episode: string;
+  characters: ICharacterBase[];
 }

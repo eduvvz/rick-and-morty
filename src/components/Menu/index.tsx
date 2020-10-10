@@ -14,7 +14,7 @@ const Menu: React.FC = () => {
             <Link to="/episodes">Episodios</Link>
           </Button>
           <Button color="inherit">
-            <Link to="characteres">Personagens</Link>
+            <Link to="characters">Personagens</Link>
           </Button>
         </Toolbar>
       </Grid>
