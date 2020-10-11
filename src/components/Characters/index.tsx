@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 const Characters: React.FC = () => {
   const classes = useStyles();
   const client = useApolloClient();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [nextPage, setNextPage] = useState<number | null>(1);
   const [characters, setCharacters] = useState<ICharacterItemList[]>([]);
 
