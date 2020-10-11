@@ -7,7 +7,9 @@ const Menu: React.FC = () => {
     <AppBar position="static">
       <Grid justify="space-between" container>
         <Toolbar>
-          <Typography variant="h6">R & M</Typography>
+          <Typography variant="h6">
+            <Link to="/">R & M</Link>
+          </Typography>
         </Toolbar>
         <Toolbar>
           <Button color="inherit">

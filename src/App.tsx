@@ -5,6 +5,7 @@ import client from './services/apollo';
 import List from './components/Episodes';
 import Menu from './components/Menu';
 import Characters from './components/Characters';
+import Home from './components/Home';
 
 const App: React.FC = () => {
   return (
@@ -17,6 +18,9 @@ const App: React.FC = () => {
           </Route>
           <Route path="/characters">
             <Characters />
+          </Route>
+          <Route path="/">
+            <Home />
           </Route>
         </Switch>
       </Router>
